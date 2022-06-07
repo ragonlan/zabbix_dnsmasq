@@ -1,0 +1,325 @@
+{
+    "zabbix_export": {
+        "version": "6.0",
+        "date": "2022-06-07T15:55:18Z",
+        "groups": [
+            {
+                "uuid": "57b7ae836ca64446ba2c296389c009b7",
+                "name": "Templates/Modules"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "6e20a933f6b54d3d9dafc02b2321fb52",
+                "template": "dnsmasq",
+                "name": "dnsmasq",
+                "groups": [
+                    {
+                        "name": "Templates/Modules"
+                    }
+                ],
+                "items": [
+                    {
+                        "uuid": "f2e04a385f6143be84a244847b955d61",
+                        "name": "Server queries fails",
+                        "key": "zdnsmasqfail[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"servers.bind.\"]",
+                        "description": "Total DNS queries failed on upstream servers.",
+                        "preprocessing": [
+                            {
+                                "type": "CHANGE_PER_SECOND",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "application",
+                                "value": "dns"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "application"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "04f976634eba485d9f12cfdfb0c88993",
+                        "name": "Authoritative zones",
+                        "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"auth.bind.\"]",
+                        "description": "DNS queries for authoritative zones",
+                        "tags": [
+                            {
+                                "tag": "application",
+                                "value": "dns"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "application"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "449b3707db6144afa788fe0657b58b5a",
+                        "name": "Cachesize",
+                        "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"cachesize.bind.\"]",
+                        "description": "Configured size of the DNS cache.",
+                        "tags": [
+                            {
+                                "tag": "application",
+                                "value": "dns"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "application"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "5e17348445c5474190bdf8b41b07b863",
+                        "name": "Evictions",
+                        "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"evictions.bind.\"]",
+                        "description": "DNS cache exictions: numbers of entries which replaced an unexpired cache entry",
+                        "tags": [
+                            {
+                                "tag": "application",
+                                "value": "dns"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "application"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "20ed49e496dc4855bfa12fdfb1c55503",
+                        "name": "Hits",
+                        "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"hits.bind.\"]",
+                        "description": "DNS queries answered locally (cache hits)",
+                        "preprocessing": [
+                            {
+                                "type": "CHANGE_PER_SECOND",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "application",
+                                "value": "dns"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "application"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "b674c40c4cda4d1f95067b763563e73d",
+                        "name": "Insertions",
+                        "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"insertions.bind.\"]",
+                        "description": "DNS cache insertions.",
+                        "preprocessing": [
+                            {
+                                "type": "CHANGE_PER_SECOND",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "application",
+                                "value": "dns"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "application"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "33d13be28c364f5198e3714a5ac0c26a",
+                        "name": "Misses",
+                        "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"misses.bind.\"]",
+                        "description": "DNS cache misses: queries which had to be forwarded.",
+                        "preprocessing": [
+                            {
+                                "type": "CHANGE_PER_SECOND",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "application",
+                                "value": "dns"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "application"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "a34625b75aaa4f798f135f5bc58eb823",
+                        "name": "Server queries",
+                        "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"servers.bind.\"]",
+                        "description": "Total DNS queries on upstream servers.",
+                        "preprocessing": [
+                            {
+                                "type": "CHANGE_PER_SECOND",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "application",
+                                "value": "dns"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "application"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "87f0ca184b2e48aba8b35b4212497ffe",
+                                "expression": "nodata(/dnsmasq/zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"servers.bind.\"],600)=1",
+                                "name": "DNSmasq fail",
+                                "priority": "DISASTER"
+                            }
+                        ]
+                    }
+                ],
+                "macros": [
+                    {
+                        "macro": "{$DNS.PORT}",
+                        "value": "53"
+                    },
+                    {
+                        "macro": "{$DNS.SERVER}",
+                        "value": "127.0.0.1"
+                    }
+                ],
+                "dashboards": [
+                    {
+                        "uuid": "4c8eed453f7945509e78fa2895a96c13",
+                        "name": "dnsmasq",
+                        "pages": [
+                            {
+                                "widgets": [
+                                    {
+                                        "type": "GRAPH_CLASSIC",
+                                        "name": "hits",
+                                        "width": "24",
+                                        "height": "5",
+                                        "fields": [
+                                            {
+                                                "type": "GRAPH",
+                                                "name": "graphid",
+                                                "value": {
+                                                    "host": "dnsmasq",
+                                                    "name": "hists per seconds"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "GRAPH_CLASSIC",
+                                        "name": "work",
+                                        "y": "5",
+                                        "width": "24",
+                                        "height": "5",
+                                        "fields": [
+                                            {
+                                                "type": "GRAPH",
+                                                "name": "graphid",
+                                                "value": {
+                                                    "host": "dnsmasq",
+                                                    "name": "dns work"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "graphs": [
+            {
+                "uuid": "ddf55e7b2719411bba7850f1615009d0",
+                "name": "dns work",
+                "graph_items": [
+                    {
+                        "color": "FF4000",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"evictions.bind.\"]"
+                        }
+                    },
+                    {
+                        "sortorder": "1",
+                        "color": "388E3C",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"hits.bind.\"]"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "color": "2774A4",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"insertions.bind.\"]"
+                        }
+                    },
+                    {
+                        "sortorder": "3",
+                        "color": "F7941D",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"misses.bind.\"]"
+                        }
+                    }
+                ]
+            },
+            {
+                "uuid": "40349693beb94b3e82f91e21a003678c",
+                "name": "hists per seconds",
+                "graph_items": [
+                    {
+                        "color": "4DB6AC",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"hits.bind.\"]"
+                        }
+                    },
+                    {
+                        "sortorder": "1",
+                        "color": "5C6BC0",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"servers.bind.\"]"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "color": "FF0000",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasqfail[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"servers.bind.\"]"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
