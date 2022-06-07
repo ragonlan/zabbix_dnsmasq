@@ -15,7 +15,7 @@ DNSmasq monitoring for Zabbix
 |Server queries|Total DNS queries on upstream servers.|`Zabbix agent`|zdnsmasq["{$DNS.SERVER}","{$DNS.PORT}","servers.bind."]|
 |Misses|DNS cache misses: queries which had to be forwarded.|`Zabbix agent`|zdnsmasq["{$DNS.SERVER}","{$DNS.PORT}","misses.bind."]|
 |Insertions|DNS cache insertions.|`Zabbix agent`|zdnsmasq["{$DNS.SERVER}","{$DNS.PORT}","insertions.bind."]|
-|Hits|DNS queries answered locally (cache hits)|`Zabbix agent`|zdnsmasq["{$DNS.SERVER}","{$DNS.PORT}","hits.bind."]|
+|Hits|number of requests served by the dnsmasq from its cache|`Zabbix agent`|zdnsmasq["{$DNS.SERVER}","{$DNS.PORT}","hits.bind."]|
 |Evictions|DNS cache exictions: numbers of entries which replaced an unexpired cache entry|`Zabbix agent`|zdnsmasq["{$DNS.SERVER}","{$DNS.PORT}","evictions.bind."]|
 |Cachesize|Configured size of the DNS cache.|`Zabbix agent`|zdnsmasq["{$DNS.SERVER}","{$DNS.PORT}","cachesize.bind."]|
 |Authoritative zones|DNS queries for authoritative zones|`Zabbix agent`|zdnsmasq["{$DNS.SERVER}","{$DNS.PORT}","auth.bind."]|
