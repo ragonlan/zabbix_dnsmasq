@@ -6,6 +6,7 @@ DNSmasq monitoring for Zabbix
 - Copy zdnsmasq.conf in zabbix agent configuracion in /etc/zabbix/zabbix_agent2.d
 - Restar Zabbix agent: systemctl restart zabbix-agent2.service
 - Import in Zabbix server template file template-zdnsmasq.json.
+- Install dns library: sudo apt install python3-dnspython
 
 # Items collected
 
