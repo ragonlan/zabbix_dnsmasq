@@ -1,7 +1,7 @@
 {
     "zabbix_export": {
         "version": "6.0",
-        "date": "2022-06-07T15:55:18Z",
+        "date": "2022-06-08T07:58:07Z",
         "groups": [
             {
                 "uuid": "57b7ae836ca64446ba2c296389c009b7",
@@ -26,7 +26,7 @@
                         "description": "Total DNS queries failed on upstream servers.",
                         "preprocessing": [
                             {
-                                "type": "CHANGE_PER_SECOND",
+                                "type": "SIMPLE_CHANGE",
                                 "parameters": [
                                     ""
                                 ]
@@ -98,7 +98,7 @@
                         "description": "DNS queries answered locally (cache hits)",
                         "preprocessing": [
                             {
-                                "type": "CHANGE_PER_SECOND",
+                                "type": "SIMPLE_CHANGE",
                                 "parameters": [
                                     ""
                                 ]
@@ -122,7 +122,7 @@
                         "description": "DNS cache insertions.",
                         "preprocessing": [
                             {
-                                "type": "CHANGE_PER_SECOND",
+                                "type": "SIMPLE_CHANGE",
                                 "parameters": [
                                     ""
                                 ]
@@ -146,12 +146,30 @@
                         "description": "DNS cache misses: queries which had to be forwarded.",
                         "preprocessing": [
                             {
-                                "type": "CHANGE_PER_SECOND",
+                                "type": "SIMPLE_CHANGE",
                                 "parameters": [
                                     ""
                                 ]
                             }
                         ],
+                        "tags": [
+                            {
+                                "tag": "application",
+                                "value": "dns"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "application"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "a0dc058d33f6472f98bb1bc31eb064fe",
+                        "name": "Hit ratio",
+                        "type": "CALCULATED",
+                        "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"ratio\"]",
+                        "value_type": "FLOAT",
+                        "params": "last(//zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"hits.bind.\"]) /(last(//zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"hits.bind.\"])+last(//zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"misses.bind.\"]))",
                         "tags": [
                             {
                                 "tag": "application",
@@ -170,7 +188,7 @@
                         "description": "Total DNS queries on upstream servers.",
                         "preprocessing": [
                             {
-                                "type": "CHANGE_PER_SECOND",
+                                "type": "SIMPLE_CHANGE",
                                 "parameters": [
                                     ""
                                 ]
@@ -215,8 +233,26 @@
                                 "widgets": [
                                     {
                                         "type": "GRAPH_CLASSIC",
-                                        "name": "hits",
+                                        "name": "Hit Ratio",
+                                        "y": "2",
                                         "width": "24",
+                                        "height": "5",
+                                        "fields": [
+                                            {
+                                                "type": "GRAPH",
+                                                "name": "graphid",
+                                                "value": {
+                                                    "host": "dnsmasq",
+                                                    "name": "Hit ratio"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "GRAPH_CLASSIC",
+                                        "name": "hits",
+                                        "y": "7",
+                                        "width": "12",
                                         "height": "5",
                                         "fields": [
                                             {
@@ -232,8 +268,9 @@
                                     {
                                         "type": "GRAPH_CLASSIC",
                                         "name": "work",
-                                        "y": "5",
-                                        "width": "24",
+                                        "x": "12",
+                                        "y": "7",
+                                        "width": "12",
                                         "height": "5",
                                         "fields": [
                                             {
@@ -316,6 +353,45 @@
                         "item": {
                             "host": "dnsmasq",
                             "key": "zdnsmasqfail[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"servers.bind.\"]"
+                        }
+                    }
+                ]
+            },
+            {
+                "uuid": "ccca9ced1f2b4ebaa4c6f1e7947db00d",
+                "name": "Hit ratio",
+                "show_work_period": "NO",
+                "show_triggers": "NO",
+                "graph_items": [
+                    {
+                        "drawtype": "GRADIENT_LINE",
+                        "color": "199C0D",
+                        "calc_fnc": "MIN",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"ratio\"]"
+                        }
+                    },
+                    {
+                        "sortorder": "1",
+                        "drawtype": "DASHED_LINE",
+                        "color": "1976D2",
+                        "yaxisside": "RIGHT",
+                        "calc_fnc": "MIN",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"hits.bind.\"]"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "drawtype": "DASHED_LINE",
+                        "color": "FF0000",
+                        "yaxisside": "RIGHT",
+                        "calc_fnc": "MIN",
+                        "item": {
+                            "host": "dnsmasq",
+                            "key": "zdnsmasq[\"{$DNS.SERVER}\",\"{$DNS.PORT}\",\"misses.bind.\"]"
                         }
                     }
                 ]
