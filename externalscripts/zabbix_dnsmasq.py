@@ -74,6 +74,9 @@ def getMetrics(dnsserver, dnsport, metricname):
     resolver.timeout = 5
     resolver.lifetime = 5
 
+    if not metricname.endswith('.'): # Add trailing dot in case you forget.
+        metricname += '.'
+
     datametrtics = ''
     if metricname in metrics and dnsserver:
         resolver.nameservers = [dnsserver]
